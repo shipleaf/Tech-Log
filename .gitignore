@@ -1,0 +1,13 @@
+__pycache__/
+
+# Generated prompt logs stay local and can grow quickly.
+.harness/prompt-log/events/**
+!.harness/prompt-log/events/.gitkeep
+.harness/prompt-log/digests/**
+!.harness/prompt-log/digests/.gitkeep
+.harness/prompt-log/archive/**
+!.harness/prompt-log/archive/.gitkeep
+.harness/prompt-log/state/**
+!.harness/prompt-log/state/.gitkeep
+!.harness/prompt-log/state/open/
+!.harness/prompt-log/state/open/.gitkeep

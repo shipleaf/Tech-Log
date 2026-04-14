@@ -1,0 +1,9 @@
+docs/references/design-system-reference-llms.txt
+
+상태: placeholder
+
+이 레포에는 아직 외부 디자인 시스템 레퍼런스가 정리되어 있지 않다.
+추가되기 전까지는 아래 문서를 우선 참조한다.
+
+- ../DESIGN.md
+- ../FRONTEND.md
