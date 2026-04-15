@@ -1,0 +1,38 @@
+---
+title: "루트는 유지하고, 블로그 앱만 추가하기"
+description: "문서와 하네스 파일을 건드리지 않고 Next.js App Router 블로그를 공존시키는 기본 전략."
+date: "2026-04-15"
+tags:
+  - nextjs
+  - app-router
+  - architecture
+published: true
+---
+
+# 왜 `app/`만 추가하는가
+
+이 저장소는 이미 문서, 하네스, 테스트 스크립트를 루트에 가지고 있습니다.  
+그래서 블로그를 시작한다고 해서 저장소 전체를 새 앱처럼 갈아엎는 방식은 맞지 않습니다.
+
+이번 구조의 핵심은 다음 세 가지입니다.
+
+1. 앱 라우팅은 `app/` 아래로 한정한다.
+2. 콘텐츠는 `content/blog/*.mdx`에서만 관리한다.
+3. 문서와 하네스 파일은 기존 위치를 그대로 유지한다.
+
+## 기대하는 흐름
+
+- 새 포스트를 작성한다.
+- `content/blog/my-post.mdx` 파일을 추가한다.
+- 목록 페이지에서 자동으로 노출된다.
+- `/blog/my-post` 상세 페이지가 정적으로 생성된다.
+
+```tsx
+export async function generateStaticParams() {
+  const slugs = await getPublishedPostSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+```
+
+이 방식은 미래의 나에게도 단순합니다.  
+글을 쓸 때는 콘텐츠 파일만 열면 되고, 화면 구조를 바꾸고 싶을 때만 앱 코드를 보면 됩니다.
