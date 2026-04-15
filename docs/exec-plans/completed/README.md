@@ -13,6 +13,7 @@
 - [`M0-harness-setup.md`](./M0-harness-setup.md) — 장기 마일스톤 계획에서 종료 기록으로 전환됨
 - [`2026-04-16-exec-plan-flow-audit.md`](./2026-04-16-exec-plan-flow-audit.md) — 실행 계획 운영 흐름 점검 및 active 초기화
 - [`2026-04-16-exec-plan-commit-merge.md`](./2026-04-16-exec-plan-commit-merge.md) — exec-plans 정리 변경 커밋 및 develop 병합
+- [`2026-04-16-shell-exec-harness.md`](./2026-04-16-shell-exec-harness.md) — AGENTS 실행 순서를 강제하는 쉘 하네스 추가
 
 ## 규칙
 

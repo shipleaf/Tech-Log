@@ -15,6 +15,7 @@
 
 ## 실행
 
+- [`harness/exec-workflow.md`](./harness/exec-workflow.md)
 - [`harness/prompt-logging.md`](./harness/prompt-logging.md)
 - [`exec-plans/README.md`](./exec-plans/README.md)
 - [`exec-plans/active/README.md`](./exec-plans/active/README.md)

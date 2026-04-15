@@ -1,5 +1,8 @@
 # Prompt Logging Workflow
 
+> 이 문서는 prompt log 보조 도구에 대한 설명입니다.
+> `AGENTS.md` 실행 순서를 강제하는 실제 하네스는 [`exec-workflow.md`](./exec-workflow.md)를 따른다.
+
 > 프롬프트 요청과 1-2줄 답변 요약을 로컬에 기록하는 하네스 워크플로우입니다.
 > 저장은 append-only JSONL로 하고, 사람이 읽는 Markdown digest를 별도로 생성합니다.
 
