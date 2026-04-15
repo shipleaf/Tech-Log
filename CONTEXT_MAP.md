@@ -22,8 +22,9 @@ Codex는 어떤 구현 작업도 시작하기 전에 반드시 아래 문서를 
 2. 이 문서
 3. 관련 [`docs/product-specs/index.md`](./docs/product-specs/index.md) 및 세부 명세
 4. [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)
-5. [`docs/exec-plans/active/README.md`](./docs/exec-plans/active/README.md)
-6. [`docs/QUALITY_SCORE.md`](./docs/QUALITY_SCORE.md)
+5. [`docs/exec-plans/README.md`](./docs/exec-plans/README.md)
+6. [`docs/exec-plans/active/README.md`](./docs/exec-plans/active/README.md)
+7. [`docs/QUALITY_SCORE.md`](./docs/QUALITY_SCORE.md)
 
 위 문서를 읽기 전에는 파일 수정, 테스트 작성, 검증, 커밋, 완료 보고를 시작하지 않는다.
 
@@ -45,6 +46,7 @@ Codex는 어떤 구현 작업도 시작하기 전에 반드시 아래 문서를 
 ### 실행
 
 - [`AGENTS.md`](./AGENTS.md) — 작업 시작 조건, 실행 순서, 완료 조건
+- [`docs/exec-plans/README.md`](./docs/exec-plans/README.md) — 실행 계획 수명주기와 파일 운영 규칙
 - [`docs/exec-plans/active/README.md`](./docs/exec-plans/active/README.md) — 현재 활성 실행 계획
 - [`docs/exec-plans/tech-debt-tracker.md`](./docs/exec-plans/tech-debt-tracker.md) — 기술 부채 목록
 
@@ -72,8 +74,9 @@ Codex는 어떤 구현 작업도 시작하기 전에 반드시 아래 문서를 
 2. 이 문서를 읽었는가?
 3. 레이어 규칙([`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md))을 확인했는가?
 4. 관련 [`docs/product-specs/index.md`](./docs/product-specs/index.md) 문서와 세부 명세를 읽었는가?
-5. 현재 활성 실행 계획([`docs/exec-plans/active/README.md`](./docs/exec-plans/active/README.md))과 충돌하지 않는가?
-6. [`docs/QUALITY_SCORE.md`](./docs/QUALITY_SCORE.md)에서 해당 도메인의 현재 등급을 확인했는가?
+5. 실행 계획 수명주기([`docs/exec-plans/README.md`](./docs/exec-plans/README.md))와 현재 활성 계획([`docs/exec-plans/active/README.md`](./docs/exec-plans/active/README.md))을 확인했는가?
+6. 이번 작업을 위한 작은 단위 실행 계획을 `docs/exec-plans/active/`에 기록했는가?
+7. [`docs/QUALITY_SCORE.md`](./docs/QUALITY_SCORE.md)에서 해당 도메인의 현재 등급을 확인했는가?
 
 ---
 
@@ -90,6 +93,7 @@ Codex는 어떤 구현 작업도 시작하기 전에 반드시 아래 문서를 
 
 - 새 기능 추가 시 [`docs/product-specs/index.md`](./docs/product-specs/index.md)에 명세를 먼저 작성한다
 - 아키텍처 변경 시 [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)와 [`docs/design-docs/index.md`](./docs/design-docs/index.md)를 동시에 업데이트한다
+- `docs/PLANS.md`는 마일스톤만 추적하고, 실제 작업 단위는 `docs/exec-plans/active/`와 `docs/exec-plans/completed/`에서 관리한다
 - 완료된 실행 계획은 `docs/exec-plans/active/` → `docs/exec-plans/completed/`로 이동한다
 - 문서가 30일 이상 검증되지 않은 경우 stale 태그를 붙인다
 

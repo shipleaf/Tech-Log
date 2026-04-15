@@ -3,6 +3,9 @@
 > 현재 진행 중인 마일스톤과 우선순위입니다.
 > Codex는 태스크를 시작하기 전 이 문서와 `docs/exec-plans/active/`를 함께 확인합니다.
 
+`docs/PLANS.md`는 마일스톤과 우선순위를 관리한다.
+실제 작업 착수와 종료 기록은 작은 단위 실행 계획으로 `docs/exec-plans/active/`와 `docs/exec-plans/completed/`에서 관리한다.
+
 ---
 
 ## 현재 마일스톤: M0 — 하네스 구축
@@ -17,6 +20,12 @@
 - [ ] CI 파이프라인 기본 구성
 - [ ] 린터 & 구조적 테스트 설정
 - [ ] `docs/design-docs/core-beliefs.md` 확정
+
+## 실행 계획 운영 메모
+
+- `docs/exec-plans/active/`에는 현재 진행 중인 작은 단위 실행 계획만 둔다
+- 활성 실행 계획이 없을 때는 `docs/exec-plans/active/README.md`만 남아 있어도 된다
+- 마일스톤 전체 백로그를 `active/`에 장기 보관하지 않는다
 
 ---
 
@@ -40,4 +49,4 @@
 
 ---
 
-_마지막 갱신: 2026-04-15_
+_마지막 갱신: 2026-04-16_

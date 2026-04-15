@@ -16,6 +16,7 @@
 ## 실행
 
 - [`harness/prompt-logging.md`](./harness/prompt-logging.md)
+- [`exec-plans/README.md`](./exec-plans/README.md)
 - [`exec-plans/active/README.md`](./exec-plans/active/README.md)
 - [`exec-plans/tech-debt-tracker.md`](./exec-plans/tech-debt-tracker.md)
 
