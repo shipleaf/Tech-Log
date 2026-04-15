@@ -11,7 +11,7 @@
 **상태:** 🔄 진행 중
 
 ### 완료 조건
-- [ ] AGENTS.md 초안 완성
+- [ ] AGENTS.md / CONTEXT_MAP.md 초안 완성
 - [ ] ARCHITECTURE.md 레이어 정의 완성
 - [ ] 기술 스택 결정 (논의 진행 중)
 - [ ] CI 파이프라인 기본 구성
