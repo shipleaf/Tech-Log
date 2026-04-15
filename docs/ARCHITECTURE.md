@@ -22,6 +22,9 @@ Types → Config → Repository → Service → Runtime → UI
 | `runtime/` | API 라우트, 서버 로직 | 모든 상위 레이어 |
 | `ui/` | 컴포넌트, 페이지 | `types/`, `runtime/` API만 |
 
+이 저장소에서 **UI 레이어는 `app/` 라우트와 `components/` 폴더**로 구현한다.
+`content/`는 데이터 소스이며, 오직 `runtime/`만 읽을 수 있다.
+
 **절대 금지:**
 - `ui/`에서 `repository/` 직접 호출
 - `types/`에서 다른 내부 레이어 import
@@ -32,23 +35,13 @@ Types → Config → Repository → Service → Runtime → UI
 ## 도메인 구조 (블로그 앱 기준)
 
 ```
-src/
-├── types/          # 공유 타입 (Post, Tag, Author 등)
-├── config/         # 환경설정
-├── repository/     # DB 쿼리 레이어
-│   ├── post/
-│   ├── tag/
-│   └── author/
-├── service/        # 비즈니스 로직
-│   ├── post/
-│   ├── search/
-│   └── rss/
-├── runtime/        # API 엔드포인트
-│   └── api/
-└── ui/             # 컴포넌트 & 페이지
-    ├── components/
-    ├── layouts/
-    └── pages/
+app/                # Next.js App Router surface (UI)
+components/         # shadcn/ui 및 블로그 UI 컴포넌트 (UI)
+config/             # 사이트 설정
+content/
+└── blog/           # MDX 원본 포스트, runtime 에서만 읽음
+runtime/            # 파일 시스템 접근 및 MDX 렌더링
+types/              # 공유 타입
 ```
 
 ---
@@ -70,8 +63,12 @@ src/
 
 | 카테고리 | 결정 | 근거 | 결정일 |
 |---------|------|------|-------|
-| (미정) | — | — | — |
+| 프레임워크 | Next.js 16 App Router | 파일 기반 라우팅과 정적 생성, React Server Components 활용 | 2026-04-15 |
+| 언어 | TypeScript strict | 명시적 타입과 자동화 검증 강화 | 2026-04-15 |
+| 스타일링 | Tailwind CSS v4 | 빠른 반복과 디자인 토큰 관리 | 2026-04-15 |
+| UI 프리미티브 | shadcn/ui | 코드 소유권을 유지한 채 재사용 가능한 UI 확보 | 2026-04-15 |
+| 콘텐츠 저장 방식 | `content/blog/*.mdx` 파일 기반 | 작은 MVP에서 작성 마찰과 유지보수 비용 최소화 | 2026-04-15 |
 
 ---
 
-_마지막 갱신: <!-- 날짜 --> | 검증 상태: 초안_
+_마지막 갱신: 2026-04-15 | 검증 상태: 초안_
