@@ -21,8 +21,8 @@ export default function RootLayout({
       lang="ko"
       className="h-full scroll-smooth antialiased"
     >
-      <body className="min-h-full">
-        <div className="relative flex min-h-screen flex-col overflow-x-hidden">
+      <body className="min-h-full overflow-x-clip">
+        <div className="relative flex min-h-screen flex-col">
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <footer className="border-t border-border">

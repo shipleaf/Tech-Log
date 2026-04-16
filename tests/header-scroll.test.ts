@@ -27,4 +27,7 @@ test("RootLayout renders the shared SiteHeader component", () => {
 
   assert.match(layout, /import \{ SiteHeader \} from "@\/components\/layout\/SiteHeader"/);
   assert.match(layout, /<SiteHeader \/>/);
+  assert.match(layout, /<body className="min-h-full overflow-x-clip">/);
+  assert.match(layout, /<div className="relative flex min-h-screen flex-col">/);
+  assert.doesNotMatch(layout, /overflow-x-hidden/);
 });

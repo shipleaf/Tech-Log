@@ -14,6 +14,7 @@
 - [`2026-04-16-exec-plan-flow-audit.md`](./2026-04-16-exec-plan-flow-audit.md) — 실행 계획 운영 흐름 점검 및 active 초기화
 - [`2026-04-16-exec-plan-commit-merge.md`](./2026-04-16-exec-plan-commit-merge.md) — exec-plans 정리 변경 커밋 및 develop 병합
 - [`2026-04-16-sticky-scroll-header.md`](./2026-04-16-sticky-scroll-header.md) — 스크롤 위치에 따라 전환되는 sticky 헤더 구현
+- [`2026-04-16-sticky-scroll-header-fix.md`](./2026-04-16-sticky-scroll-header-fix.md) — sticky 헤더를 무력화하던 overflow 레이아웃 회귀 수정
 - [`2026-04-16-ui-monochrome-pretendard.md`](./2026-04-16-ui-monochrome-pretendard.md) — 전역 UI를 흑백 토큰과 Pretendard 폰트로 정리
 - [`2026-04-16-shell-exec-harness.md`](./2026-04-16-shell-exec-harness.md) — AGENTS 실행 순서를 강제하는 쉘 하네스 추가
 
