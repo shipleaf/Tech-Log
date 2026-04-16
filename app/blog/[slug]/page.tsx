@@ -46,6 +46,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const content = await renderPostContent(post.content);
+  const postMeta = [
+    { label: "작성", value: formatPostDate(post.date) },
+    { label: "읽기", value: `${post.readingMinutes}분` },
+    { label: "조회", value: "0명" },
+    { label: "좋아요", value: "0명" },
+  ];
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 py-14 md:py-18">
@@ -60,33 +66,41 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         목록으로 돌아가기
       </Link>
 
-      <article className="surface-card overflow-hidden">
-        <header className="border-b border-border px-6 py-8 md:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="space-y-3">
-              <h1 className="font-[family-name:var(--font-newsreader)] text-5xl tracking-[-0.05em] text-foreground">
-                {post.title}
-              </h1>
-              <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-                {post.description}
-              </p>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {formatPostDate(post.date)} · {post.readingMinutes}분 읽기
+      <article className="flex flex-col gap-12">
+        <header className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
+          <div className="flex flex-wrap justify-center gap-2">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="space-y-3">
+            <h1 className="font-[family-name:var(--font-newsreader)] text-5xl tracking-[-0.05em] text-foreground">
+              {post.title}
+            </h1>
+            <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
+              {post.description}
             </p>
           </div>
+          <dl className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
+            {postMeta.map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center gap-2 whitespace-nowrap"
+              >
+                <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                  {item.label}
+                </dt>
+                <dd className="font-medium text-foreground">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
         </header>
-        <div className="px-6 py-10 md:px-10">
+        <div className="mx-auto w-full max-w-3xl">
           <div className="prose prose-lg max-w-none">{content}</div>
         </div>
       </article>
