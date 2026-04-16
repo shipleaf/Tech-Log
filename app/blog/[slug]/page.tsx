@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         목록으로 돌아가기
       </Link>
 
-      <article className="flex flex-col gap-12">
+      <article className="flex flex-col gap-24">
         <header className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
           <div className="flex flex-wrap justify-center gap-2">
             {post.tags.map((tag) => (

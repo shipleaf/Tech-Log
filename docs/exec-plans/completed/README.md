@@ -13,6 +13,7 @@
 - [`M0-harness-setup.md`](./M0-harness-setup.md) — 장기 마일스톤 계획에서 종료 기록으로 전환됨
 - [`2026-04-16-exec-plan-flow-audit.md`](./2026-04-16-exec-plan-flow-audit.md) — 실행 계획 운영 흐름 점검 및 active 초기화
 - [`2026-04-16-exec-plan-commit-merge.md`](./2026-04-16-exec-plan-commit-merge.md) — exec-plans 정리 변경 커밋 및 develop 병합
+- [`2026-04-16-post-detail-spacing-tune.md`](./2026-04-16-post-detail-spacing-tune.md) — 게시글 상세 페이지의 제목 영역과 본문 영역 사이 간격을 확대하고 관련 테스트를 갱신
 - [`2026-04-16-sticky-scroll-header.md`](./2026-04-16-sticky-scroll-header.md) — 스크롤 위치에 따라 전환되는 sticky 헤더 구현
 - [`2026-04-16-sticky-scroll-header-fix.md`](./2026-04-16-sticky-scroll-header-fix.md) — sticky 헤더를 무력화하던 overflow 레이아웃 회귀 수정
 - [`2026-04-16-post-detail-header-layout.md`](./2026-04-16-post-detail-header-layout.md) — 게시글 상세 헤더의 카드 border를 제거하고 가운데 정렬 메타 레이아웃과 조회수/좋아요 자리표시를 추가

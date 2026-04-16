@@ -13,6 +13,7 @@ test("blog post page keeps the article header borderless and centered", () => {
   const page = readRepoFile("app", "blog", "[slug]", "page.tsx");
 
   assert.doesNotMatch(page, /surface-card|border-b border-border/);
+  assert.match(page, /<article className="flex flex-col gap-24">/);
   assert.match(page, /max-w-3xl flex-col items-center gap-6 text-center/);
   assert.match(page, /flex-wrap items-center justify-center gap-x-6 gap-y-3/);
   assert.match(page, /mx-auto w-full max-w-3xl/);
