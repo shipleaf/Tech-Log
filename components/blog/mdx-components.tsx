@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { MDXComponents } from "mdx/types";
 
 const linkClassName =
-  "font-medium underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary";
+  "font-medium underline decoration-current underline-offset-4 transition-colors hover:text-primary";
 
 export const mdxComponents: MDXComponents = {
   a: ({ href, ...props }) => {

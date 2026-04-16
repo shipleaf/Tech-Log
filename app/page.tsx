@@ -48,10 +48,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap gap-4">
             <Link
               href="/blog"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "rounded-full px-5 shadow-[0_18px_40px_-28px_rgba(36,92,148,0.85)]",
-              )}
+              className={cn(buttonVariants({ size: "lg" }), "rounded-full px-5")}
             >
               모든 글 보기
               <ArrowRight />
@@ -61,7 +58,7 @@ export default async function HomePage() {
                 href={`/blog/${featuredPosts[0].slug}`}
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
-                  "rounded-full bg-background/80 px-5",
+                  "rounded-full bg-background px-5",
                 )}
               >
                 첫 샘플 글 열기
@@ -73,7 +70,7 @@ export default async function HomePage() {
           {highlights.map(({ title, description, icon: Icon }, index) => (
             <div
               key={title}
-              className="rounded-[calc(var(--radius)*1.1)] border border-border/70 bg-background/80 p-4 animate-in fade-in slide-in-from-right-6 duration-700 fill-mode-both"
+              className="rounded-[calc(var(--radius)*1.1)] border border-border bg-background p-4 animate-in fade-in slide-in-from-right-6 duration-700 fill-mode-both"
               style={{ animationDelay: `${index * 140}ms` }}
             >
               <Icon className="mb-4 size-5 text-primary" />

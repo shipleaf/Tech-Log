@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </Link>
 
       <article className="surface-card overflow-hidden">
-        <header className="border-b border-border/70 px-6 py-8 md:px-10">
+        <header className="border-b border-border px-6 py-8 md:px-10">
           <div className="space-y-4">
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (

@@ -30,7 +30,7 @@ export function PostCard({ post, index = 0 }: PostCardProps) {
             </p>
           </div>
         </div>
-        <span className="hidden rounded-full border border-border/70 bg-secondary/55 px-3 py-1 text-xs uppercase tracking-[0.18em] text-muted-foreground md:inline-flex">
+        <span className="hidden rounded-full border border-border bg-secondary px-3 py-1 text-xs uppercase tracking-[0.18em] text-muted-foreground md:inline-flex">
           {post.slug}
         </span>
       </div>
@@ -49,7 +49,7 @@ export function PostCard({ post, index = 0 }: PostCardProps) {
           href={`/blog/${post.slug}`}
           className={cn(
             buttonVariants({ variant: "ghost", size: "sm" }),
-            "group/link w-fit rounded-full px-0 text-sm text-primary hover:bg-transparent",
+            "group/link w-fit rounded-full px-0 text-sm text-primary hover:bg-background",
           )}
         >
           읽으러 가기
