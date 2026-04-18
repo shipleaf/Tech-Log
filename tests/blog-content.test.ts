@@ -18,6 +18,7 @@ test("getPostBySlug loads content and frontmatter for an existing post", async (
 
   assert.ok(post);
   assert.ok(post.title.length > 0);
+  assert.match(post.content, /블로그를 시작한다고 해서/);
   assert.match(post.content, /generateStaticParams/);
   assert.match(post.content, /```tsx/);
   assert.match(post.content, /```bash/);
@@ -29,6 +30,8 @@ test("sample posts include multiple fenced code languages for the blog code tabs
 
   assert.ok(firstPost);
   assert.ok(secondPost);
+  assert.match(firstPost.content, /앱 라우팅은 `app\/` 아래로 한정한다\./);
+  assert.match(secondPost.content, /MDX 파일 기반 접근은 다음 장점이 있습니다\./);
   assert.match(firstPost.content, /```tsx/);
   assert.match(firstPost.content, /```bash/);
   assert.match(secondPost.content, /```mdx/);
