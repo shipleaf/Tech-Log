@@ -53,16 +53,6 @@ export function SiteHeader() {
           <Link href="/blog" className="transition-colors duration-300">
             블로그
           </Link>
-          <span
-            className={cn(
-              "hidden rounded-full border px-3 py-1 text-xs uppercase tracking-[0.22em] transition-[background-color,border-color,color] duration-300 md:inline-flex",
-              isScrolled
-                ? "border-primary-foreground bg-primary-foreground text-primary"
-                : "border-border bg-card text-foreground",
-            )}
-          >
-            Next.js · MDX · shadcn/ui
-          </span>
         </nav>
       </div>
     </header>

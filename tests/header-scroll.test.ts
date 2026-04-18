@@ -20,6 +20,10 @@ test("SiteHeader uses scroll state to drive sticky monochrome transitions", () =
   assert.match(header, /border-primary bg-primary text-primary-foreground/);
   assert.match(header, /transition-\[background-color,border-color,color\] duration-300 ease-out/);
   assert.match(header, /data-scrolled=\{isScrolled\}/);
+  assert.match(header, /<Link href="\/" className="transition-colors duration-300">/);
+  assert.match(header, /<Link href="\/blog" className="transition-colors duration-300">/);
+  assert.doesNotMatch(header, /Next\.js · MDX · shadcn\/ui/);
+  assert.doesNotMatch(header, /tracking-\[0\.22em\]/);
 });
 
 test("RootLayout renders the shared SiteHeader component", () => {
