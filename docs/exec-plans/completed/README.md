@@ -22,6 +22,7 @@
 - [`2026-04-18-header-next-tab-removal.md`](./2026-04-18-header-next-tab-removal.md) 헤더의 Next 배지 제거
 - [`2026-04-18-code-language-tab-colors.md`](./2026-04-18-code-language-tab-colors.md) 코드 블록 언어 탭 UI 작업을 출하 계획으로 통합
 - [`2026-04-18-merge-enforced-shipping.md`](./2026-04-18-merge-enforced-shipping.md) 머지 강제 종료 워크플로우와 코드 탭 UI 출하
+- [`2026-04-18-example-post-code-tabs.md`](./2026-04-18-example-post-code-tabs.md) 예시 블로그 글에 `tsx`, `bash`, `mdx`, `json` 코드 블록을 적용
 
 ## 규칙
 
