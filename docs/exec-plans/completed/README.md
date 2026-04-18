@@ -20,6 +20,7 @@
 - [`2026-04-16-ui-monochrome-pretendard.md`](./2026-04-16-ui-monochrome-pretendard.md) — 전역 UI를 흑백 토큰과 Pretendard 폰트로 정리
 - [`2026-04-16-shell-exec-harness.md`](./2026-04-16-shell-exec-harness.md) — AGENTS 실행 순서를 강제하는 쉘 하네스 추가
 - [`2026-04-18-header-next-tab-removal.md`](./2026-04-18-header-next-tab-removal.md) — 헤더에서 기술 스택 배지를 제거하고 관련 검증을 정리
+- [`2026-04-18-post-card-click-target-and-hover.md`](./2026-04-18-post-card-click-target-and-hover.md) — 포스트 카드 전체를 클릭 타깃으로 확장하고 hover 강조와 관련 검증을 정리
 
 ## 규칙
 

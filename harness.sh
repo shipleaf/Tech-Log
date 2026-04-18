@@ -23,41 +23,49 @@ die() {
   exit 1
 }
 
+canonical_pwd() {
+  if pwd -W >/dev/null 2>&1; then
+    pwd -W | tr '\\' '/'
+  else
+    pwd -P
+  fi
+}
+
 absolute_existing_path() {
   input_path=$1
   case "$input_path" in
-    /*) target_path=$input_path ;;
-    *) target_path=$(pwd -P)/$input_path ;;
+    /*|[A-Za-z]:/*) target_path=$input_path ;;
+    *) target_path=$(canonical_pwd)/$input_path ;;
   esac
 
   [ -e "$target_path" ] || die "path does not exist: $input_path"
 
-  target_dir=$(CDPATH= cd -- "$(dirname "$target_path")" && pwd -P)
+  target_dir=$(CDPATH= cd -- "$(dirname "$target_path")" && canonical_pwd)
   printf '%s/%s\n' "$target_dir" "$(basename "$target_path")"
 }
 
 absolute_path_allow_missing() {
   input_path=$1
   case "$input_path" in
-    /*) target_path=$input_path ;;
-    *) target_path=$(pwd -P)/$input_path ;;
+    /*|[A-Za-z]:/*) target_path=$input_path ;;
+    *) target_path=$(canonical_pwd)/$input_path ;;
   esac
 
   parent_dir=$(dirname "$target_path")
   [ -d "$parent_dir" ] || die "parent directory does not exist: $parent_dir"
 
-  resolved_parent=$(CDPATH= cd -- "$parent_dir" && pwd -P)
+  resolved_parent=$(CDPATH= cd -- "$parent_dir" && canonical_pwd)
   printf '%s/%s\n' "$resolved_parent" "$(basename "$target_path")"
 }
 
 repo_root() {
   root_path=$(git rev-parse --show-toplevel 2>/dev/null) || die "run inside a git worktree"
-  CDPATH= cd -- "$root_path" && pwd -P
+  CDPATH= cd -- "$root_path" && canonical_pwd
 }
 
 git_common_dir() {
   common_path=$(git rev-parse --git-common-dir 2>/dev/null) || die "run inside a git worktree"
-  CDPATH= cd -- "$common_path" && pwd -P
+  CDPATH= cd -- "$common_path" && canonical_pwd
 }
 
 task_dir() {
