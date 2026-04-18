@@ -19,6 +19,9 @@ test("globals.css locks the UI to Pretendard and black-white tokens", () => {
   assert.doesNotMatch(css, /@fontsource\/manrope|@fontsource\/newsreader|@fontsource\/ibm-plex-mono/);
   assert.doesNotMatch(css, /oklch\(|rgba\(|color-mix\(|radial-gradient|linear-gradient/);
   assert.deepEqual([...new Set(hexColors)].sort(), ["#000", "#fff"]);
+  assert.match(css, /--code-tab-tsx: hsl\(/);
+  assert.match(css, /--code-tab-javascript: hsl\(/);
+  assert.match(css, /--code-block-surface: hsl\(/);
 });
 
 test("shared UI files avoid translucent or multi-color styling shortcuts", () => {

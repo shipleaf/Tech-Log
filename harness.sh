@@ -13,6 +13,7 @@ Usage:
   ./harness.sh complete-plan <task-id>
   ./harness.sh commit <task-id> <commit-message>
   ./harness.sh merge <task-id> <target-branch>
+  ./harness.sh ship <task-id> <commit-message> <target-branch>
   ./harness.sh report <task-id>
   ./harness.sh status <task-id>
 EOF
@@ -23,10 +24,24 @@ die() {
   exit 1
 }
 
-absolute_existing_path() {
+normalize_input_path() {
   input_path=$1
+
+  case "$input_path" in
+    [A-Za-z]:\\*|[A-Za-z]:/*)
+      printf '%s\n' "$(printf '%s' "$input_path" | sed 's#\\#/#g')"
+      ;;
+    *)
+      printf '%s\n' "$input_path"
+      ;;
+  esac
+}
+
+absolute_existing_path() {
+  input_path=$(normalize_input_path "$1")
   case "$input_path" in
     /*) target_path=$input_path ;;
+    [A-Za-z]:/*) target_path=$input_path ;;
     *) target_path=$(pwd -P)/$input_path ;;
   esac
 
@@ -37,9 +52,10 @@ absolute_existing_path() {
 }
 
 absolute_path_allow_missing() {
-  input_path=$1
+  input_path=$(normalize_input_path "$1")
   case "$input_path" in
     /*) target_path=$input_path ;;
+    [A-Za-z]:/*) target_path=$input_path ;;
     *) target_path=$(pwd -P)/$input_path ;;
   esac
 
@@ -486,6 +502,19 @@ command_merge() {
   printf 'merged %s into %s\n' "$task_branch" "$target_branch"
 }
 
+command_ship() {
+  [ "$#" -eq 3 ] || die "ship requires <task-id> <commit-message> <target-branch>"
+
+  task_id=$1
+  commit_message=$2
+  target_branch=$3
+
+  command_complete_plan "$task_id"
+  command_commit "$task_id" "$commit_message"
+  command_merge "$task_id" "$target_branch"
+  command_report "$task_id"
+}
+
 command_report() {
   [ "$#" -eq 1 ] || die "report requires <task-id>"
 
@@ -545,6 +574,7 @@ main() {
     complete-plan) command_complete_plan "$@" ;;
     commit) command_commit "$@" ;;
     merge) command_merge "$@" ;;
+    ship) command_ship "$@" ;;
     report) command_report "$@" ;;
     status) command_status "$@" ;;
     help|-h|--help) usage ;;

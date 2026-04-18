@@ -7,7 +7,6 @@ import {
   mkdirSync,
   mkdtempSync,
   readFileSync,
-  rmSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -15,6 +14,29 @@ import path from "node:path";
 import test from "node:test";
 
 const harnessSource = path.join(process.cwd(), "harness.sh");
+const shellCommand = resolveShellCommand();
+const pathSeparator = path.delimiter;
+
+function resolveShellCommand() {
+  if (process.platform !== "win32") {
+    return "sh";
+  }
+
+  const programFiles = process.env.ProgramFiles ?? "C:\\Program Files";
+  const candidates = [
+    process.env.SH,
+    path.join(programFiles, "Git", "bin", "sh.exe"),
+    path.join(programFiles, "Git", "usr", "bin", "sh.exe"),
+  ].filter((value): value is string => typeof value === "string" && value.length > 0);
+
+  for (const candidate of candidates) {
+    if (candidate === "sh" || existsSync(candidate)) {
+      return candidate;
+    }
+  }
+
+  return "sh";
+}
 
 type RunOptions = {
   cwd: string;
@@ -56,9 +78,8 @@ function runFailure(command: string, args: string[], options: Omit<RunOptions, "
   return `${result.stdout}\n${result.stderr}`;
 }
 
-test("harness enforces the AGENTS flow and allows rerunning stale stages", (t) => {
+test("harness enforces the AGENTS flow and allows rerunning stale stages", () => {
   const sandboxRoot = mkdtempSync(path.join(tmpdir(), "tech-log-harness-"));
-  t.after(() => rmSync(sandboxRoot, { recursive: true, force: true }));
 
   const repoRoot = path.join(sandboxRoot, "repo");
   const taskId = "shell-flow";
@@ -100,14 +121,14 @@ exit 0
 
   writeFileSync(path.join(repoRoot, planRelativePath), "# task\n", "utf8");
 
-  const blockedBeforePlan = runFailure("sh", ["./harness.sh", "implementation-done", taskId], {
+  const blockedBeforePlan = runFailure(shellCommand, ["./harness.sh", "implementation-done", taskId], {
     cwd: repoRoot,
   });
   assert.match(blockedBeforePlan, /worktree-prepared/);
 
-  run("sh", ["./harness.sh", "record-plan", taskId, planRelativePath], { cwd: repoRoot });
+  run(shellCommand, ["./harness.sh", "record-plan", taskId, planRelativePath], { cwd: repoRoot });
   const nestedWorktreeError = runFailure(
-    "sh",
+    shellCommand,
     [
       "./harness.sh",
       "prepare-worktree",
@@ -121,7 +142,7 @@ exit 0
   assert.match(nestedWorktreeError, /outside the main repo root/);
 
   run(
-    "sh",
+    shellCommand,
     ["./harness.sh", "prepare-worktree", taskId, "feat-shell-flow", worktreeRoot, "develop"],
     { cwd: repoRoot },
   );
@@ -134,74 +155,78 @@ exit 0
 
   writeFileSync(path.join(worktreeRoot, "harness-notes.txt"), "implementation\n", "utf8");
 
-  const blockedBeforeImplementation = runFailure("sh", ["./harness.sh", "tests-done", taskId], {
+  const blockedBeforeImplementation = runFailure(shellCommand, ["./harness.sh", "tests-done", taskId], {
     cwd: worktreeRoot,
   });
   assert.match(blockedBeforeImplementation, /implementation-done/);
 
-  run("sh", ["./harness.sh", "implementation-done", taskId], { cwd: worktreeRoot });
+  run(shellCommand, ["./harness.sh", "implementation-done", taskId], { cwd: worktreeRoot });
 
-  const missingTests = runFailure("sh", ["./harness.sh", "tests-done", taskId], {
+  const missingTests = runFailure(shellCommand, ["./harness.sh", "tests-done", taskId], {
     cwd: worktreeRoot,
   });
   assert.match(missingTests, /without test changes/);
 
   mkdirSync(path.join(worktreeRoot, "tests"), { recursive: true });
   writeFileSync(path.join(worktreeRoot, "tests", "harness.test.ts"), "export {};\n", "utf8");
-  run("sh", ["./harness.sh", "tests-done", taskId], { cwd: worktreeRoot });
+  run(shellCommand, ["./harness.sh", "tests-done", taskId], { cwd: worktreeRoot });
 
   writeFileSync(path.join(worktreeRoot, "another-change.txt"), "stale\n", "utf8");
-  const staleVerify = runFailure("sh", ["./harness.sh", "verify", taskId], {
+  const staleVerify = runFailure(shellCommand, ["./harness.sh", "verify", taskId], {
     cwd: worktreeRoot,
-    env: { PATH: `${fakeBin}:${process.env.PATH}` },
+    env: { PATH: `${fakeBin}${pathSeparator}${process.env.PATH ?? ""}` },
   });
   assert.match(staleVerify, /workspace changed after step 'tests-done'/);
 
-  run("sh", ["./harness.sh", "implementation-done", taskId], { cwd: worktreeRoot });
+  run(shellCommand, ["./harness.sh", "implementation-done", taskId], { cwd: worktreeRoot });
   writeFileSync(path.join(worktreeRoot, "tests", "harness.test.ts"), "export const ok = true;\n", "utf8");
-  run("sh", ["./harness.sh", "tests-done", taskId], { cwd: worktreeRoot });
-  run("sh", ["./harness.sh", "verify", taskId], {
+  run(shellCommand, ["./harness.sh", "tests-done", taskId], { cwd: worktreeRoot });
+  run(shellCommand, ["./harness.sh", "verify", taskId], {
     cwd: worktreeRoot,
-    env: { PATH: `${fakeBin}:${process.env.PATH}` },
+    env: { PATH: `${fakeBin}${pathSeparator}${process.env.PATH ?? ""}` },
   });
 
-  assert.deepEqual(readFileSync(npmLog, "utf8").trim().split("\n"), [
+  assert.deepEqual(readFileSync(npmLog, "utf8").trim().split(/\r?\n/), [
     "run build",
     "run lint",
     "test",
   ]);
 
-  run("sh", ["./harness.sh", "complete-plan", taskId], { cwd: worktreeRoot });
-  assert.equal(existsSync(path.join(worktreeRoot, "docs", "exec-plans", "active", "task.md")), false);
-  assert.equal(existsSync(completedPlanPath), true);
-
-  writeFileSync(path.join(worktreeRoot, "post-plan.txt"), "requires re-complete\n", "utf8");
-  const staleCommit = runFailure(
-    "sh",
-    ["./harness.sh", "commit", taskId, "chore: commit shell flow"],
+  writeFileSync(path.join(worktreeRoot, "post-verify.txt"), "requires re-verify\n", "utf8");
+  const staleShip = runFailure(
+    shellCommand,
+    ["./harness.sh", "ship", taskId, "chore: commit shell flow", "develop"],
     { cwd: worktreeRoot },
   );
-  assert.match(staleCommit, /workspace changed after step 'plan-completed'/);
+  assert.match(staleShip, /workspace changed after step 'verified'/);
 
-  run("sh", ["./harness.sh", "implementation-done", taskId], { cwd: worktreeRoot });
-  run("sh", ["./harness.sh", "tests-done", taskId], { cwd: worktreeRoot });
-  run("sh", ["./harness.sh", "verify", taskId], {
+  run(shellCommand, ["./harness.sh", "implementation-done", taskId], { cwd: worktreeRoot });
+  run(shellCommand, ["./harness.sh", "tests-done", taskId], { cwd: worktreeRoot });
+  run(shellCommand, ["./harness.sh", "verify", taskId], {
     cwd: worktreeRoot,
-    env: { PATH: `${fakeBin}:${process.env.PATH}` },
+    env: { PATH: `${fakeBin}${pathSeparator}${process.env.PATH ?? ""}` },
   });
-  run("sh", ["./harness.sh", "complete-plan", taskId], { cwd: worktreeRoot });
-  run("sh", ["./harness.sh", "commit", taskId, "chore: commit shell flow"], {
-    cwd: worktreeRoot,
-  });
-  run("sh", ["./harness.sh", "merge", taskId, "develop"], { cwd: worktreeRoot });
+  const ship = run(
+    shellCommand,
+    ["./harness.sh", "ship", taskId, "chore: commit shell flow", "develop"],
+    {
+      cwd: worktreeRoot,
+    },
+  );
 
-  const report = run("sh", ["./harness.sh", "report", taskId], { cwd: worktreeRoot });
+  assert.match(ship.stdout, /merged-into: develop/);
+  assert.equal(existsSync(path.join(worktreeRoot, "docs", "exec-plans", "active", "task.md")), false);
+  assert.equal(existsSync(completedPlanPath), true);
+  assert.match(ship.stdout, /commit:/);
+  assert.match(ship.stdout, /branch: feat-shell-flow/);
+
+  const report = run(shellCommand, ["./harness.sh", "report", taskId], { cwd: worktreeRoot });
   assert.match(report.stdout, /merged-into: develop/);
   assert.match(
     run("git", ["-C", repoRoot, "rev-parse", "--abbrev-ref", "HEAD"], { cwd: repoRoot }).stdout,
     /develop/,
   );
 
-  const status = run("sh", ["./harness.sh", "status", taskId], { cwd: worktreeRoot });
+  const status = run(shellCommand, ["./harness.sh", "status", taskId], { cwd: worktreeRoot });
   assert.match(status.stdout, /reported: done/);
 });

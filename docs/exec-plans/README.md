@@ -39,5 +39,6 @@
 1. 작업이 끝나면 결과와 검증 내역을 문서에 남긴다.
 2. 상태를 `완료`, `취소`, `대체됨` 중 하나로 갱신한다.
 3. 문서를 `docs/exec-plans/completed/`로 이동한다.
-4. `docs/PLANS.md`, `active/README.md`, 관련 문서와 상태를 맞춘다.
-5. 커밋이나 머지가 아직 끝나지 않았다면 그 상태를 완료 보고에 명시한다.
+4. 종료 기본 명령은 `./harness.sh ship <task-id> <commit-message> develop`이며, 이 단계에서 completed 이동, 커밋, `develop` 머지, 완료 보고까지 끝낸다.
+5. `docs/PLANS.md`, `active/README.md`, 관련 문서와 상태를 맞춘다.
+6. 머지 권한이나 환경 제약으로 `develop` 반영이 끝나지 않았다면 완료로 간주하지 말고 그 상태를 명시한다.
