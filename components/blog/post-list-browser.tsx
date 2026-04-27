@@ -9,7 +9,15 @@ import { formatPostDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { PostSummary } from "@/types/post";
 
-const categories = ["전체", "프론트엔드", "백엔드", "인프라", "CS", "AI", "취업준비"];
+const categories = [
+  "전체",
+  "프론트엔드",
+  "백엔드",
+  "인프라",
+  "CS",
+  "AI",
+  "취업준비",
+];
 
 const categoryByTag: Record<string, string> = {
   "app-router": "프론트엔드",
@@ -66,7 +74,9 @@ function PostThumbnail({
     <div
       className={cn(
         "relative overflow-hidden rounded-md border border-border bg-secondary",
-        variant === "grid" ? "aspect-[16/11] w-full" : "aspect-[16/10] w-full md:w-64",
+        variant === "grid"
+          ? "aspect-[16/11] w-full"
+          : "aspect-[16/10] w-full md:w-64",
       )}
     >
       <Image
@@ -103,7 +113,7 @@ function PostSummaryCard({
     >
       <article
         className={cn(
-          "h-full transition-transform duration-200 group-hover:-translate-y-1",
+          "h-full",
           viewMode === "list"
             ? "grid gap-5 border-t border-border py-8 md:grid-cols-[16rem_minmax(0,1fr)]"
             : "flex flex-col gap-4",
@@ -111,19 +121,20 @@ function PostSummaryCard({
       >
         <PostThumbnail index={index} title={post.title} variant={viewMode} />
         <div className="flex min-w-0 flex-col gap-3">
+          <h2
+            className={cn(
+              "font-semibold leading-snug text-foreground",
+              viewMode === "list" ? "text-md" : "text-md",
+            )}
+          >
+            {post.title}
+          </h2>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
             <span className="font-semibold text-foreground">{category}</span>
             <span>{formatPostDate(post.date)}</span>
             <span>조회수 0회</span>
           </div>
-          <h2
-            className={cn(
-              "font-semibold leading-snug text-foreground",
-              viewMode === "list" ? "text-2xl" : "text-xl",
-            )}
-          >
-            {post.title}
-          </h2>
+
           {viewMode === "list" ? (
             <p className="max-w-3xl text-base leading-7 text-muted-foreground">
               {post.description}
@@ -139,20 +150,29 @@ export function PostListBrowser({ posts }: PostListBrowserProps) {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
 
   return (
-    <section className="flex flex-col gap-14" aria-labelledby="home-post-list-title">
+    <section
+      className="flex flex-col gap-14"
+      aria-labelledby="home-post-list-title"
+    >
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-5">
-            <h1 id="home-post-list-title" className="text-5xl font-semibold leading-none text-foreground md:text-6xl">
+          <div className="space-y-8">
+            <h1
+              id="home-post-list-title"
+              className="text-4xl font-semibold leading-none text-foreground md:text-4xl"
+            >
               전체
             </h1>
-            <nav aria-label="게시글 카테고리" className="flex flex-wrap gap-x-7 gap-y-3">
+            <nav
+              aria-label="게시글 카테고리"
+              className="flex flex-wrap gap-x-7 gap-y-3"
+            >
               {categories.map((category) => (
                 <button
                   key={category}
                   type="button"
                   className={cn(
-                    "text-lg font-medium text-muted-foreground transition-colors hover:text-foreground",
+                    "text-[18px] font-medium text-muted-foreground transition-colors hover:text-foreground",
                     category === "전체" && "text-foreground",
                   )}
                   aria-pressed={category === "전체"}
@@ -164,15 +184,24 @@ export function PostListBrowser({ posts }: PostListBrowserProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <button type="button" className="inline-flex h-10 items-center gap-2 text-sm font-semibold text-foreground">
+            <button
+              type="button"
+              className="inline-flex h-10 items-center gap-2 text-sm font-semibold text-foreground"
+            >
               필터
               <Filter className="size-4" aria-hidden="true" />
             </button>
-            <button type="button" className="inline-flex h-10 items-center gap-2 text-sm font-semibold text-foreground">
+            <button
+              type="button"
+              className="inline-flex h-10 items-center gap-2 text-sm font-semibold text-foreground"
+            >
               정렬
               <ArrowUpDown className="size-4" aria-hidden="true" />
             </button>
-            <div className="inline-flex items-center gap-2" aria-label="게시글 보기 방식">
+            <div
+              className="inline-flex items-center gap-2"
+              aria-label="게시글 보기 방식"
+            >
               <button
                 type="button"
                 className={cn(

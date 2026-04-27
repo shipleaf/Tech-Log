@@ -17,17 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ko"
-      className="h-full scroll-smooth antialiased"
-    >
+    <html lang="ko" className="h-full scroll-smooth antialiased">
       <body className="min-h-full overflow-x-clip">
         <div className="relative flex min-h-screen flex-col">
           <SiteHeader />
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-border">
+          <footer>
             <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-3 px-6 py-6 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between md:px-10">
-              <p>{siteConfig.footer}</p>
+              <p></p>
               <p>{siteConfig.tagline}</p>
             </div>
           </footer>

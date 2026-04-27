@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git merge feat-post-card-click-target --no-ff -m ' *)"
+    ]
+  }
+}
