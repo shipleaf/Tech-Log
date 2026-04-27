@@ -383,9 +383,9 @@ command_verify() {
   verification_log="$(task_dir "$task_id")/verification.log"
   : > "$verification_log"
 
-  run_logged "$worktree_root" "$verification_log" npm run build
-  run_logged "$worktree_root" "$verification_log" npm run lint
-  run_logged "$worktree_root" "$verification_log" npm test
+  run_logged "$worktree_root" "$verification_log" npm.cmd run build
+  run_logged "$worktree_root" "$verification_log" npm.cmd run lint
+  run_logged "$worktree_root" "$verification_log" npm.cmd test
 
   mark_step "$state_dir" "verified"
   save_snapshot "$state_dir" "verified"

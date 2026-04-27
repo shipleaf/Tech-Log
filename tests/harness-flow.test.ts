@@ -38,9 +38,9 @@ test("harness verify and completion stages guard stale snapshots and required ch
   const harness = readRepoFile("harness.sh");
 
   assert.match(harness, /require_current_snapshot "\$state_dir" "tests-done"/);
-  assert.match(harness, /run_logged "\$worktree_root" "\$verification_log" npm run build/);
-  assert.match(harness, /run_logged "\$worktree_root" "\$verification_log" npm run lint/);
-  assert.match(harness, /run_logged "\$worktree_root" "\$verification_log" npm test/);
+  assert.match(harness, /run_logged "\$worktree_root" "\$verification_log" npm\.cmd run build/);
+  assert.match(harness, /run_logged "\$worktree_root" "\$verification_log" npm\.cmd run lint/);
+  assert.match(harness, /run_logged "\$worktree_root" "\$verification_log" npm\.cmd test/);
   assert.match(harness, /require_current_snapshot "\$state_dir" "verified"/);
   assert.match(harness, /require_current_snapshot "\$state_dir" "plan-completed"/);
   assert.match(harness, /require_current_snapshot "\$state_dir" "committed"/);

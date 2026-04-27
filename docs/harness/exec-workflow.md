@@ -16,7 +16,7 @@
 
 ## 왜 쉘인가
 
-- 이 하네스는 `git worktree`, `git commit`, `git merge`, `npm run build`, `npm run lint`, `npm test` 같은 로컬 명령 실행이 핵심이다
+- 이 하네스는 `git worktree`, `git commit`, `git merge`, `npm.cmd run build`, `npm.cmd run lint`, `npm.cmd test` 같은 로컬 명령 실행이 핵심이다
 - 그래서 JSON 렌더링이나 압축보다 명령 오케스트레이션이 중요하고, 이 경우 `sh` 엔트리포인트가 더 직접적이다
 - 기존 [`scripts/harness/prompt_log.py`](../../scripts/harness/prompt_log.py)는 prompt logging 보조 도구이며, 실행 순서 강제기와는 목적이 다르다
 
