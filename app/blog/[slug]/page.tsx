@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ];
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 py-14 md:py-18">
+    <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-6 py-14 md:px-10 md:py-18">
       <Link
         href="/blog"
         className={cn(

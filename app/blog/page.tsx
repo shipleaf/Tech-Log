@@ -5,7 +5,7 @@ export default async function BlogIndexPage() {
   const posts = await getAllPosts();
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-6 py-14 md:py-18">
+    <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-6 py-14 md:px-10 md:py-18">
       <section className="space-y-5">
         <span className="eyebrow">Archive</span>
         <h1 className="font-[family-name:var(--font-newsreader)] text-5xl tracking-[-0.05em] text-foreground">

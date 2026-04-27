@@ -32,6 +32,7 @@ test("shared UI files avoid translucent or multi-color styling shortcuts", () =>
     ["app", "blog", "[slug]", "page.tsx"],
     ["components", "blog", "mdx-components.tsx"],
     ["components", "blog", "post-card.tsx"],
+    ["components", "blog", "post-list-browser.tsx"],
     ["components", "layout", "SiteHeader.tsx"],
     ["components", "ui", "button.tsx"],
   ];

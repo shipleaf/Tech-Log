@@ -26,6 +26,7 @@
 - [`2026-04-18-fix-mojibake-utf8-content.md`](./2026-04-18-fix-mojibake-utf8-content.md) — 샘플 블로그 글 한글 깨짐을 UTF-8 본문으로 복구
 - [`2026-04-18-post-card-click-target-and-hover.md`](./2026-04-18-post-card-click-target-and-hover.md) — 포스트 카드 전체를 클릭 타깃으로 확장하고 hover 강조와 관련 검증을 정리
 - [`2026-04-28-npm-cmd-harness-verify.md`](./2026-04-28-npm-cmd-harness-verify.md) — Windows 검증에서 `npm.ps1` 실행 정책 제한을 피하도록 하네스 npm 호출을 `npm.cmd`로 변경
+- [`2026-04-28-home-post-list-layout.md`](./2026-04-28-home-post-list-layout.md) — 홈 화면을 게시글 목록 중심 레이아웃으로 개편하고 헤더/컨테이너 토큰을 정리
 
 ## 규칙
 

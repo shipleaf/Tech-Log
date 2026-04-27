@@ -9,29 +9,24 @@ function readRepoFile(...segments: string[]) {
   return readFileSync(path.join(repoRoot, ...segments), "utf8");
 }
 
-test("SiteHeader uses scroll state to drive sticky monochrome transitions", () => {
+test("SiteHeader keeps a fixed 64px sticky header without scroll color state", () => {
   const header = readRepoFile("components", "layout", "SiteHeader.tsx");
 
-  assert.match(header, /useEffect/);
-  assert.match(header, /window\.addEventListener\("scroll", syncScrollState, \{ passive: true \}\)/);
-  assert.match(header, /window\.scrollY > scrollThreshold/);
-  assert.match(header, /sticky top-0 z-50/);
-  assert.match(header, /border-transparent bg-transparent text-foreground/);
-  assert.match(header, /border-primary bg-primary text-primary-foreground/);
-  assert.match(header, /transition-\[background-color,border-color,color\] duration-300 ease-out/);
-  assert.match(header, /data-scrolled=\{isScrolled\}/);
-  assert.match(header, /<Link href="\/" className="transition-colors duration-300">/);
-  assert.match(header, /<Link href="\/blog" className="transition-colors duration-300">/);
-  assert.doesNotMatch(header, /Next\.js · MDX · shadcn\/ui/);
-  assert.doesNotMatch(header, /tracking-\[0\.22em\]/);
+  assert.match(header, /sticky top-0 z-50 h-16 border-b border-border bg-background text-foreground/);
+  assert.match(header, /max-w-\[1440px\]/);
+  assert.match(header, /flex h-16 w-full/);
+  assert.doesNotMatch(header, /"use client"/);
+  assert.doesNotMatch(header, /useEffect|useState|addEventListener|scrollY|data-scrolled/);
+  assert.doesNotMatch(header, /bg-primary text-primary-foreground|border-transparent bg-transparent/);
 });
 
-test("RootLayout renders the shared SiteHeader component", () => {
+test("RootLayout renders shared 1440px content containers", () => {
   const layout = readRepoFile("app", "layout.tsx");
 
   assert.match(layout, /import \{ SiteHeader \} from "@\/components\/layout\/SiteHeader"/);
   assert.match(layout, /<SiteHeader \/>/);
   assert.match(layout, /<body className="min-h-full overflow-x-clip">/);
   assert.match(layout, /<div className="relative flex min-h-screen flex-col">/);
+  assert.match(layout, /max-w-\[1440px\]/);
   assert.doesNotMatch(layout, /overflow-x-hidden/);
 });
