@@ -19,16 +19,14 @@ test("globals.css locks the UI to Pretendard and black-white tokens", () => {
   assert.doesNotMatch(css, /@fontsource\/manrope|@fontsource\/newsreader|@fontsource\/ibm-plex-mono/);
   assert.doesNotMatch(css, /oklch\(|rgba\(|color-mix\(|radial-gradient|linear-gradient/);
   assert.deepEqual([...new Set(hexColors)].sort(), ["#000", "#fff"]);
-  assert.match(css, /--code-tab-tsx: hsl\(/);
-  assert.match(css, /--code-tab-javascript: hsl\(/);
   assert.match(css, /--code-block-surface: hsl\(/);
+  assert.doesNotMatch(css, /--code-tab-|--code-window-|--code-block-panel/);
 });
 
 test("shared UI files avoid translucent or multi-color styling shortcuts", () => {
   const files = [
     ["app", "layout.tsx"],
     ["app", "page.tsx"],
-    ["app", "blog", "page.tsx"],
     ["app", "blog", "[slug]", "page.tsx"],
     ["components", "blog", "mdx-components.tsx"],
     ["components", "blog", "post-card.tsx"],

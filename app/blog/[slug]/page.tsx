@@ -56,7 +56,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-6 py-14 md:px-10 md:py-18">
       <Link
-        href="/blog"
+        href="/"
         className={cn(
           buttonVariants({ variant: "ghost", size: "sm" }),
           "w-fit rounded-full px-0 text-muted-foreground hover:bg-transparent hover:text-foreground",

@@ -19,6 +19,13 @@ test("blog post page keeps the article header borderless and centered", () => {
   assert.match(page, /mx-auto w-full max-w-3xl/);
 });
 
+test("blog post page returns to the root post list", () => {
+  const page = readRepoFile("app", "blog", "[slug]", "page.tsx");
+
+  assert.match(page, /href="\/"/);
+  assert.doesNotMatch(page, /href="\/blog"/);
+});
+
 test("blog post page reserves placeholder slots for engagement stats", () => {
   const page = readRepoFile("app", "blog", "[slug]", "page.tsx");
 

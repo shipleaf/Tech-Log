@@ -12,18 +12,16 @@ const linkClassName =
   "font-medium underline decoration-current underline-offset-4 transition-colors hover:text-primary";
 
 const codeBlockThemes = {
-  bash: { label: "Bash", themeClassName: "code-block--bash" },
+  bash: { label: "Bash" },
   javascript: {
     label: "JavaScript",
-    themeClassName: "code-block--javascript",
   },
-  json: { label: "JSON", themeClassName: "code-block--json" },
-  mdx: { label: "MDX", themeClassName: "code-block--mdx" },
-  text: { label: "Code", themeClassName: "code-block--text" },
-  tsx: { label: "TSX", themeClassName: "code-block--tsx" },
+  json: { label: "JSON" },
+  mdx: { label: "MDX" },
+  text: { label: "Code" },
+  tsx: { label: "TSX" },
   typescript: {
     label: "TypeScript",
-    themeClassName: "code-block--typescript",
   },
 } as const;
 
@@ -41,7 +39,6 @@ const languageAliases: Record<string, keyof typeof codeBlockThemes> = {
 type CodeBlockTheme = {
   label: string;
   language: string;
-  themeClassName: string;
 };
 
 type CodeElementProps = ComponentPropsWithoutRef<"code">;
@@ -71,7 +68,6 @@ export function getCodeBlockTheme(className?: string): CodeBlockTheme {
   return {
     label: theme.label,
     language: normalizedLanguage,
-    themeClassName: theme.themeClassName,
   };
 }
 
@@ -86,17 +82,10 @@ function CodeBlock({ children, className, ...props }: PreElementProps) {
   return (
     <div
       aria-label={`${theme.label} code block`}
-      className={`code-block ${theme.themeClassName}`}
+      className="code-block"
       data-language={theme.language}
     >
-      <div className="code-block__header">
-        <div className="code-block__traffic-lights">
-          <span className="code-block__traffic-light code-block__traffic-light--red" />
-          <span className="code-block__traffic-light code-block__traffic-light--yellow" />
-          <span className="code-block__traffic-light code-block__traffic-light--green" />
-        </div>
-        <span className="code-block__tab">{theme.label}</span>
-      </div>
+      <span className="code-block__label">{theme.label}</span>
       <pre className={className} {...props}>
         {children}
       </pre>

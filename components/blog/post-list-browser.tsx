@@ -4,7 +4,7 @@ import type { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowUpDown, Filter, Grid2X2, List } from "lucide-react";
+import { ChevronDown, List, LayoutGrid } from "lucide-react";
 import { formatPostDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { PostSummary } from "@/types/post";
@@ -115,7 +115,7 @@ function PostSummaryCard({
         className={cn(
           "h-full",
           viewMode === "list"
-            ? "grid gap-5 border-t border-border py-8 md:grid-cols-[16rem_minmax(0,1fr)]"
+            ? "grid gap-5 border-b border-[#e5e7eb] py-8 transition-colors group-hover:border-gray-400 md:grid-cols-[16rem_minmax(0,1fr)]"
             : "flex flex-col gap-4",
         )}
       >
@@ -186,45 +186,38 @@ export function PostListBrowser({ posts }: PostListBrowserProps) {
           <div className="flex flex-wrap items-center gap-4">
             <button
               type="button"
-              className="inline-flex h-10 items-center gap-2 text-sm font-semibold text-foreground"
-            >
-              필터
-              <Filter className="size-4" aria-hidden="true" />
-            </button>
-            <button
-              type="button"
-              className="inline-flex h-10 items-center gap-2 text-sm font-semibold text-foreground"
+              className="inline-flex h-10 items-center gap-1 text-sm font-semibold text-foreground"
             >
               정렬
-              <ArrowUpDown className="size-4" aria-hidden="true" />
+              <ChevronDown className="size-4" aria-hidden="true" />
             </button>
             <div
-              className="inline-flex items-center gap-2"
+              className="inline-flex items-center gap-0"
               aria-label="게시글 보기 방식"
             >
               <button
                 type="button"
                 className={cn(
-                  "inline-flex size-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground",
-                  viewMode === "grid" && "border border-border text-foreground",
+                  "inline-flex size-10 items-center justify-center rounded-full transition-colors hover:text-black cursor-pointer",
+                  viewMode === "grid" ? "text-black" : "text-[#e5e7eb]",
                 )}
                 aria-label="그리드 보기"
                 aria-pressed={viewMode === "grid"}
                 onClick={() => setViewMode("grid")}
               >
-                <Grid2X2 className="size-5" aria-hidden="true" />
+                <LayoutGrid className="size-4" aria-hidden="true" />
               </button>
               <button
                 type="button"
                 className={cn(
-                  "inline-flex size-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground",
-                  viewMode === "list" && "border border-border text-foreground",
+                  "inline-flex size-10 items-center justify-center rounded-full transition-colors hover:text-black cursor-pointer",
+                  viewMode === "list" ? "text-black" : "text-[#e5e7eb]",
                 )}
                 aria-label="리스트 보기"
                 aria-pressed={viewMode === "list"}
                 onClick={() => setViewMode("list")}
               >
-                <List className="size-5" aria-hidden="true" />
+                <List className="size-4" aria-hidden="true" />
               </button>
             </div>
           </div>

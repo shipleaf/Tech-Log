@@ -87,21 +87,10 @@
   --sidebar-accent-foreground: #fff;
   --sidebar-border: #000;
   --sidebar-ring: #000;
-  --code-block-surface: hsl(224 20% 13%);
-  --code-block-panel: hsl(225 16% 18%);
-  --code-block-border: hsl(223 18% 25%);
-  --code-block-foreground: hsl(210 40% 96%);
-  --code-block-muted: hsl(218 15% 72%);
-  --code-tab-bash: hsl(142 71% 55%);
-  --code-tab-javascript: hsl(48 100% 62%);
-  --code-tab-json: hsl(28 96% 61%);
-  --code-tab-mdx: hsl(332 85% 65%);
-  --code-tab-text: hsl(216 14% 72%);
-  --code-tab-tsx: hsl(188 94% 58%);
-  --code-tab-typescript: hsl(211 96% 62%);
-  --code-window-red: hsl(4 88% 67%);
-  --code-window-yellow: hsl(42 96% 62%);
-  --code-window-green: hsl(135 61% 56%);
+  --code-block-surface: hsl(45 18% 96%);
+  --code-block-border: hsl(40 13% 89%);
+  --code-block-foreground: hsl(45 8% 20%);
+  --code-block-muted: hsl(35 6% 54%);
 }
 
 .dark {
@@ -136,11 +125,10 @@
   --sidebar-accent-foreground: #000;
   --sidebar-border: #fff;
   --sidebar-ring: #fff;
-  --code-block-surface: hsl(224 20% 13%);
-  --code-block-panel: hsl(225 16% 18%);
-  --code-block-border: hsl(223 18% 28%);
-  --code-block-foreground: hsl(210 40% 96%);
-  --code-block-muted: hsl(218 15% 72%);
+  --code-block-surface: hsl(0 0% 10%);
+  --code-block-border: hsl(0 0% 18%);
+  --code-block-foreground: hsl(60 7% 94%);
+  --code-block-muted: hsl(45 2% 60%);
 }
 
 @layer base {
@@ -187,6 +175,15 @@
   letter-spacing: -0.04em;
 }
 
+.prose :where(h1) {
+  color: hsl(0 0% 18%);
+  font-weight: 700;
+}
+
+.dark .prose :where(h1) {
+  color: hsl(0 0% 90%);
+}
+
 .prose :where(code):not(:where(pre code)) {
   border: 1px solid var(--border);
   border-radius: 0.4rem;
@@ -204,71 +201,23 @@
 }
 
 .prose :where(.code-block) {
-  --code-tab-accent: var(--code-tab-text);
+  position: relative;
   margin-block: 2rem;
   overflow: hidden;
   border: 1px solid var(--code-block-border);
-  border-radius: 1rem;
+  border-radius: 0.35rem;
   background: var(--code-block-surface);
   color: var(--code-block-foreground);
 }
 
-.prose :where(.code-block__header) {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  border-bottom: 1px solid var(--code-block-border);
-  background: var(--code-block-panel);
+.prose :where(.code-block__label) {
+  display: inline-flex;
   padding: 0.75rem 1rem 0;
-}
-
-.prose :where(.code-block__traffic-lights) {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.prose :where(.code-block__traffic-light) {
-  display: inline-block;
-  height: 0.7rem;
-  width: 0.7rem;
-  border-radius: 999px;
-}
-
-.prose :where(.code-block__traffic-light--red) {
-  background: var(--code-window-red);
-}
-
-.prose :where(.code-block__traffic-light--yellow) {
-  background: var(--code-window-yellow);
-}
-
-.prose :where(.code-block__traffic-light--green) {
-  background: var(--code-window-green);
-}
-
-.prose :where(.code-block__tab) {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  border: 1px solid var(--code-block-border);
-  border-bottom-color: transparent;
-  border-radius: 0.85rem 0.85rem 0 0;
-  background: var(--code-block-surface);
-  padding: 0.65rem 0.95rem 0.75rem;
-  color: var(--code-tab-accent);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  color: var(--code-block-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0;
   text-transform: uppercase;
-}
-
-.prose :where(.code-block__tab)::before {
-  height: 0.6rem;
-  width: 0.6rem;
-  border-radius: 999px;
-  background: currentColor;
-  content: "";
 }
 
 .prose :where(.code-block pre) {
@@ -277,7 +226,7 @@
   border-radius: 0;
   background: transparent;
   color: inherit;
-  padding: 1rem 1.25rem 1.25rem;
+  padding: 0.75rem 1rem 1rem;
   box-shadow: none;
 }
 
@@ -288,29 +237,5 @@
   color: inherit;
   padding: 0;
   font-size: 0.95rem;
-  line-height: 1.7;
-}
-
-.prose :where(.code-block--bash) {
-  --code-tab-accent: var(--code-tab-bash);
-}
-
-.prose :where(.code-block--javascript) {
-  --code-tab-accent: var(--code-tab-javascript);
-}
-
-.prose :where(.code-block--json) {
-  --code-tab-accent: var(--code-tab-json);
-}
-
-.prose :where(.code-block--mdx) {
-  --code-tab-accent: var(--code-tab-mdx);
-}
-
-.prose :where(.code-block--tsx) {
-  --code-tab-accent: var(--code-tab-tsx);
-}
-
-.prose :where(.code-block--typescript) {
-  --code-tab-accent: var(--code-tab-typescript);
+  line-height: 1.65;
 }

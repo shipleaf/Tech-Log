@@ -19,7 +19,7 @@ test("home page renders the post list browser in a 1440px content area", () => {
   assert.doesNotMatch(page, /M1 · Blog Foundation|Latest Posts|바로 확인할 수 있는 샘플 포스트/);
 });
 
-test("post list browser exposes category tabs, filters, and grid-list view controls", () => {
+test("post list browser exposes category tabs, sorting, and grid-list view controls", () => {
   const browser = readRepoFile("components", "blog", "post-list-browser.tsx");
 
   for (const category of ["전체", "프론트엔드", "백엔드", "인프라", "CS", "AI", "취업준비"]) {
@@ -28,8 +28,9 @@ test("post list browser exposes category tabs, filters, and grid-list view contr
 
   assert.match(browser, /type ViewMode = "grid" \| "list"/);
   assert.match(browser, /useState<ViewMode>\("grid"\)/);
-  assert.match(browser, /필터/);
   assert.match(browser, /정렬/);
+  assert.doesNotMatch(browser, /Filter/);
+  assert.doesNotMatch(browser, /필터/);
   assert.match(browser, /aria-label="그리드 보기"/);
   assert.match(browser, /aria-label="리스트 보기"/);
   assert.match(browser, /lg:grid-cols-3/);

@@ -12,10 +12,11 @@ function readRepoFile(...segments: string[]) {
 test("SiteHeader keeps a fixed 64px sticky header without scroll color state", () => {
   const header = readRepoFile("components", "layout", "SiteHeader.tsx");
 
-  assert.match(header, /sticky top-0 z-50 h-16 border-b border-border bg-background text-foreground/);
+  assert.match(header, /sticky top-0 z-50 h-16 bg-background text-foreground/);
   assert.match(header, /max-w-\[1440px\]/);
   assert.match(header, /flex h-16 w-full/);
   assert.doesNotMatch(header, /"use client"/);
+  assert.doesNotMatch(header, /border-b border-border/);
   assert.doesNotMatch(header, /useEffect|useState|addEventListener|scrollY|data-scrolled/);
   assert.doesNotMatch(header, /bg-primary text-primary-foreground|border-transparent bg-transparent/);
 });
