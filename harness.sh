@@ -349,7 +349,7 @@ command_tests_done() {
     esac
 
     case "$changed_path" in
-      docs/*|*.md)
+      docs/*|*.md|content/*.mdx)
         ;;
       tests/*|*.test.ts|*_test.sh)
         ;;

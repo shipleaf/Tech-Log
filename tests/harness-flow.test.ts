@@ -47,6 +47,13 @@ test("harness verify and completion stages guard stale snapshots and required ch
   assert.match(harness, /require_current_snapshot "\$state_dir" "committed"/);
 });
 
+test("harness treats MDX content changes as content-only for test gating", () => {
+  const harness = readRepoFile("harness.sh");
+
+  assert.match(harness, /docs\/\*\|\*\.md\|content\/\*\.mdx\)/);
+  assert.match(harness, /non-document changes detected without test changes/);
+});
+
 test("harness ship runs completion, commit, merge, and report in order", () => {
   const harness = readRepoFile("harness.sh");
 
