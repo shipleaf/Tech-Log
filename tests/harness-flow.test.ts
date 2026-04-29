@@ -21,6 +21,7 @@ test("harness exposes the full AGENTS workflow as explicit commands", () => {
   assert.match(harness, /commit <task-id> <commit-message>/);
   assert.match(harness, /merge <task-id> <target-branch>/);
   assert.match(harness, /report <task-id>/);
+  assert.match(harness, /ship <task-id> <commit-message> <target-branch>/);
 });
 
 test("harness normalizes Windows and POSIX worktree paths before comparing them", () => {
@@ -44,4 +45,16 @@ test("harness verify and completion stages guard stale snapshots and required ch
   assert.match(harness, /require_current_snapshot "\$state_dir" "verified"/);
   assert.match(harness, /require_current_snapshot "\$state_dir" "plan-completed"/);
   assert.match(harness, /require_current_snapshot "\$state_dir" "committed"/);
+});
+
+test("harness ship runs completion, commit, merge, and report in order", () => {
+  const harness = readRepoFile("harness.sh");
+
+  assert.match(harness, /command_ship\(\) \{/);
+  assert.match(harness, /ship requires <task-id> <commit-message> <target-branch>/);
+  assert.match(
+    harness,
+    /command_complete_plan "\$task_id"[\s\S]*command_commit "\$task_id" "\$commit_message"[\s\S]*command_merge "\$task_id" "\$target_branch"[\s\S]*command_report "\$task_id"/,
+  );
+  assert.match(harness, /ship\) command_ship "\$@" ;;/);
 });

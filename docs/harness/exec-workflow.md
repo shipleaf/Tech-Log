@@ -86,6 +86,12 @@ worktree 준비:
 ./harness.sh report shell-flow
 ```
 
+종료 일괄 처리:
+
+```sh
+./harness.sh ship shell-flow "chore: add shell execution harness" develop
+```
+
 상태 확인:
 
 ```sh
@@ -104,6 +110,7 @@ worktree 준비:
 - `complete-plan`은 `verified` snapshot이 stale이면 실패한다
 - `commit`은 `plan-completed` snapshot이 stale이면 실패한다
 - `merge`는 main repo root가 target branch 위에 있고 clean 상태일 때만 수행한다
+- `ship`은 `complete-plan`, `commit`, `merge`, `report`를 같은 순서로 실행한다
 
 ---
 

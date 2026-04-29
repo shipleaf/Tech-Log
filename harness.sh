@@ -14,6 +14,7 @@ Usage:
   ./harness.sh commit <task-id> <commit-message>
   ./harness.sh merge <task-id> <target-branch>
   ./harness.sh report <task-id>
+  ./harness.sh ship <task-id> <commit-message> <target-branch>
   ./harness.sh status <task-id>
 EOF
 }
@@ -512,6 +513,19 @@ command_report() {
   printf 'merged-into: %s\n' "$(read_meta_required "$state_dir" "target_branch")"
 }
 
+command_ship() {
+  [ "$#" -eq 3 ] || die "ship requires <task-id> <commit-message> <target-branch>"
+
+  task_id=$1
+  commit_message=$2
+  target_branch=$3
+
+  command_complete_plan "$task_id"
+  command_commit "$task_id" "$commit_message"
+  command_merge "$task_id" "$target_branch"
+  command_report "$task_id"
+}
+
 command_status() {
   [ "$#" -eq 1 ] || die "status requires <task-id>"
 
@@ -554,6 +568,7 @@ main() {
     commit) command_commit "$@" ;;
     merge) command_merge "$@" ;;
     report) command_report "$@" ;;
+    ship) command_ship "$@" ;;
     status) command_status "$@" ;;
     help|-h|--help) usage ;;
     *) usage; die "unknown command: $command_name" ;;
