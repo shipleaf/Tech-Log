@@ -59,7 +59,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         href="/"
         className={cn(
           buttonVariants({ variant: "ghost", size: "sm" }),
-          "w-fit rounded-full px-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+          "w-fit rounded-full px-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
         )}
       >
         <ArrowLeft />
@@ -92,7 +92,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 key={item.label}
                 className="flex items-center gap-2 whitespace-nowrap"
               >
-                <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                <dt className="font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                   {item.label}
                 </dt>
                 <dd className="font-medium text-foreground">{item.value}</dd>
